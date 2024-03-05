@@ -25,7 +25,7 @@ jobs:
     - name: Run tests
       run: |
         # Add your test commands here
-        # Example: docker exec -it a5be0c0e2ed0188c6be399ef5fb84fcea26e9160fd9effe16e6c2b101f5f3b16 mysql -u root -pBalaji@1999 -e "SELECT * FROM employee_details;"
+        docker exec -it a5be0c0e2ed0188c6be399ef5fb84fcea26e9160fd9effe16e6c2b101f5f3b16 mysql -u root -pBalaji@1999 -e "SELECT * FROM employee_details;"
 
     - name: Build and push Docker image (if needed)
       # If you need to build a Docker image for your application, add the necessary steps here.
@@ -33,7 +33,7 @@ jobs:
     - name: Deploy to Docker container
       run: |
         docker cp ./crud_employee_details.sql a5be0c0e2ed0188c6be399ef5fb84fcea26e9160fd9effe16e6c2b101f5f3b16:/docker-entrypoint-initdb.d/
-        # Example: docker exec -it a5be0c0e2ed0188c6be399ef5fb84fcea26e9160fd9effe16e6c2b101f5f3b16 mysql -u root -pBalaji@1999 your_database < /docker-entrypoint-initdb.d/crud_employee_details.sql
+        docker exec -it a5be0c0e2ed0188c6be399ef5fb84fcea26e9160fd9effe16e6c2b101f5f3b16 mysql -u root -pBalaji@1999 your_database < /docker-entrypoint-initdb.d/crud_employee_details.sql
 
     - name: Clean up
       run: |
