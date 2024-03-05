@@ -1,43 +1,37 @@
-name: CI/CD for MySQL Database
+name: MySQL CI/CD
 
 on:
   push:
     branches:
-      - master
+      - master # Adjust the branch name as needed
 
 jobs:
-  test:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: Balaji@1999
+          MYSQL_DATABASE: crud_employee_details.sql
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Build Dockerized MySQL Application
+        run: |
+          docker build -t mysql:latest .
+
+  deploy:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Docker
-      run: sudo service docker start
-
-    - name: Run MySQL container with volume
-      run: |
-        docker run -d \
-          --name mysql-container \
-          -e MYSQL_ROOT_PASSWORD=Balaji@1999 \
-          -p 3306:3306 \
-          -v ${{ github.workspace }}/sql-scripts:/docker-entrypoint-initdb.d \
-          mysql:latest
-
-    - name: Wait for MySQL to start
-      run: docker exec mysql-container mysqladmin --silent --wait=30 -uroot -pBalaji@1999 ping
-
-    - name: Copy SQL script into volume
-      run: cp D:/kiruthiga/DEPLOY_ANGULAR/crud_employee_details.sql ${{ github.workspace }}/sql-scripts/
-
-
-    - name: Run tests
-      run: |
-        # Add your test commands here
-        # Example: docker exec mysql-container mysql -u root -pBalaji@1999 -e "SELECT * FROM your_table;"
-
-    - name: Clean up
-      run: |
-        docker stop mysql-container
-        docker rm mysql-container
+      - name: Deploy Dockerized MySQL Application
+        run: |
+          docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=Balaji@1999 -e MYSQL_DATABASE=crud_employee_details mysql:latest
