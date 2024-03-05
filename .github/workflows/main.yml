@@ -34,8 +34,8 @@ jobs:
 
     - name: Deploy SQL scripts
       run: |
-        docker cp ./crud_employee_details.sql mysql-container:/docker-entrypoint-initdb.d/
-        docker exec mysql-container mysql -u root -pBalaji@1999 your_database < /docker-entrypoint-initdb.d/crud_employee_details.sql
+       docker cp D:/kiruthiga/DEPLOY_ANGULAR/crud_employee_details.sql mysql-container:/docker-entrypoint-initdb.d/
+       docker exec mysql-container mysql -u root -p Balaji@1999 your_database < /docker-entrypoint-initdb.d/crud_employee_details.sql
 
     - name: Clean up
       run: |
