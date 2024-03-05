@@ -39,7 +39,7 @@ CREATE TABLE `employee_details` (
 
 LOCK TABLES `employee_details` WRITE;
 /*!40000 ALTER TABLE `employee_details` DISABLE KEYS */;
-INSERT INTO `employee_details` VALUES (1,'Balaji G','balajigurusamy99@gmail.com',919003262568),(2,'swet','swe2002@gmail.com',9840026240),(3,'monisha','monish@gmai',9840026240),(4,'poojitha','pooj@gmail.com',9842226240),(5,'keerthi','balajigurusamy99@gmail.com',919003262568);
+INSERT INTO `employee_details` VALUES (1,'Balaji G','balajigurusamy99@gmail.com',919003262568),(2,'swet','swe2002@gmail.com',9840026240),(3,'monisha','monish@gmai',9840026240),(4,'poojitha','pooj@gmail.com',9842226240),(5,'keerthi','balajigurusamy99@gmail.com',919003262568),(6,'anj','anj@gmail.com',5678654355);
 /*!40000 ALTER TABLE `employee_details` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
