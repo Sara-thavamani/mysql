@@ -31,6 +31,7 @@ jobs:
     - name: Copy SQL script into volume
       run: cp D:/kiruthiga/DEPLOY_ANGULAR/crud_employee_details.sql ${{ github.workspace }}/sql-scripts/
 
+
     - name: Run tests
       run: |
         # Add your test commands here
