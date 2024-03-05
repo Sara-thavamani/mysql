@@ -30,7 +30,7 @@ jobs:
     - name: Run tests
       run: |
         # Add your test commands here
-        Example: docker exec mysql-container mysql -u root -pBalaji@1999 -e "SELECT * FROM employee_details;"
+        # Example: docker exec mysql-container mysql -u root -pBalaji@1999 -e "SELECT * FROM employee_details;"
 
     - name: Deploy SQL scripts
       run: |
