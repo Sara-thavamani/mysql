@@ -16,27 +16,25 @@ jobs:
     - name: Set up Docker
       run: sudo service docker start
 
-    - name: Run MySQL container
+    - name: Run MySQL container with volume
       run: |
         docker run -d \
           --name mysql-container \
           -e MYSQL_ROOT_PASSWORD=Balaji@1999 \
           -p 3306:3306 \
+          -v ${{ github.workspace }}/sql-scripts:/docker-entrypoint-initdb.d \
           mysql:latest
 
     - name: Wait for MySQL to start
       run: docker exec mysql-container mysqladmin --silent --wait=30 -uroot -pBalaji@1999 ping
 
+    - name: Copy SQL script into volume
+      run: cp D:/kiruthiga/DEPLOY_ANGULAR/crud_employee_details.sql ${{ github.workspace }}/sql-scripts/
+
     - name: Run tests
       run: |
         # Add your test commands here
         # Example: docker exec mysql-container mysql -u root -pBalaji@1999 -e "SELECT * FROM your_table;"
-
-    - name: Deploy SQL scripts
-      run: |
-       docker cp D:/kiruthiga/DEPLOY_ANGULAR/crud_employee_details.sql mysql-container:/docker-entrypoint-initdb.d/
-       docker exec mysql-container mysql -u root -p Balaji@1999 your_database < /docker-entrypoint-initdb.d/crud_employee_details.sql
-
 
     - name: Clean up
       run: |
