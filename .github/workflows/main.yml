@@ -1,0 +1,37 @@
+name: MySQL CI/CD
+
+on:
+  push:
+    branches:
+      - master # Adjust the branch name as needed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: Balaji@1999
+          MYSQL_DATABASE: crud_employee_details.sql
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Build Dockerized MySQL Application
+        run: |
+          docker build -t mysql:latest .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy Dockerized MySQL Application
+        run: |
+          docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=Balaji@1999 -e MYSQL_DATABASE=crud_employee_details mysql:latest
